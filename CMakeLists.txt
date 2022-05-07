@@ -5,7 +5,7 @@ project(Game)
 
 set (CMAKE_CXX_STANDARD 17)
 
-add_executable(${PROJECT_NAME} game.cpp)
+add_executable(${PROJECT_NAME} Entity.cpp Character.cpp Environment.cpp game.cpp)
 
 if (NOT TARGET raylib)
   find_package(raylib 2.5.0 REQUIRED)

@@ -1,11 +1,15 @@
 #include "raylib.h"
+#include "Environment.hpp"
 
 auto main() -> int
 {
-    int winWidth{320};
-    int winHeight{240};
+    int winWidth{512};
+    int winHeight{380};
 
     InitWindow(winWidth, winHeight, "Game");
+
+    Environment environment;
+    Character character;
 
     float circleRadius = 25;
     int circleX = winWidth * .5;
@@ -17,24 +21,17 @@ auto main() -> int
     {
         BeginDrawing();
         ClearBackground(WHITE);
-        // Game logic
-        DrawCircle(circleX, circleY, circleRadius, circleColor);
-        if (IsKeyDown(KEY_A) && circleX > 0)
-        {
-            circleX -= 1;
-        }
-        if (IsKeyDown(KEY_D) && circleX < winWidth)
-        {
-            circleX += 1;
-        }
-        if (IsKeyDown(KEY_S) && circleY < winHeight)
-        {
-            circleY += 1;
-        }
-        if (IsKeyDown(KEY_W) && circleY > 0)
-        {
-            circleY -= 1;
-        }
+
+        // Env
+        environment.Tick(GetFrameTime());
+
+        environment.Render();
+
+        // Character
+        character.Tick(GetFrameTime());
+        character.Render();
+
+
         EndDrawing();
     }
 
