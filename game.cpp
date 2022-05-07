@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "Environment.hpp"
+#include "Character.hpp"
 
 auto main() -> int
 {
@@ -11,10 +12,8 @@ auto main() -> int
     Environment environment;
     Character character;
 
-    float circleRadius = 25;
-    int circleX = winWidth * .5;
-    int circleY = winHeight * .5;
-    Color circleColor = BLUE;
+    character.SetWindowSize(winWidth, winHeight);
+    character.SetPosition(winWidth * .5, winHeight * .5);
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
