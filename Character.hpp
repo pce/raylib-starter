@@ -17,6 +17,7 @@ private:
     float y{};
     int winWidth;
     int winHeight;
+    float scaleFactor{1.f};
     // animation data
     float runningTime{};
     int frame{};
@@ -24,7 +25,8 @@ private:
     float rightLeft{1.0};
     const float updateTime{1.f / 6.f};
     int textureMaxFrames{7};
-    // Vector2 velocity{};
+    float speed{2};
+    Vector2 velocity{};
 };
 
 #endif
