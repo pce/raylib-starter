@@ -19,26 +19,33 @@ void Character::Tick(float deltatime)
         y -= 1;
     }
 
+
+    // animation (column based)
+    runningTime += deltatime;
+    if (runningTime > updateTime)
+    {
+        frame++;
+        runningTime = 0;
+    }
+    if (frame > textureMaxFrames)
+    {
+        frame = 0;
+    }
+
     Entity::Tick(deltatime);
-}
+}   
 
 void Character::Render()
 {
-    // Vector2 fg2Pos{fgX + foreground.width * 2, 0.0};
-    // DrawTextureEx(texture, fg2Pos, 0.0, 2.0, WHITE);
-    
-    DrawCircle(x, y, 23.0, DARKBLUE);
+    Vector2 pos{x, y};
+    Rectangle rec;
+    rec.x = frame * texture.width/textureMaxFrames;
+    rec.y = 0;
+    rec.width = texture.width/textureMaxFrames;
+    rec.height = texture.height;
 
-    // DrawTriangleLines((Vector2){circleX, 160.0f},
-    //                     (Vector2){circleY - 20.0f, 230.0f},
-    //                     (Vector2){circleX + circleRadius, 230.0f}, circleColor);
-
-    // Polygon shapes and lines
-    // DrawPoly((Vector2){screenWidth/4.0f*3, 320}, 6, 80, 0, BROWN);
-    // DrawPolyLinesEx((Vector2){screenWidth/4.0f*3, 320}, 6, 80, 0, 6, BEIGE);
-
+    DrawTextureRec(texture, rec, pos, WHITE);
 }
-
 
 void Character::SetWindowSize(int width, int height) 
 {

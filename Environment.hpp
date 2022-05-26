@@ -10,11 +10,11 @@ public:
     void Render() override;
     ~Environment();
 private:
-    Texture2D background = LoadTexture("assets/textures/far.png");
+    Texture2D background = LoadTexture("assets/textures/env/far.png");
     float bgX{};
-    Texture2D midground = LoadTexture("assets/textures/sand.png");
+    Texture2D midground = LoadTexture("assets/textures/env/sand.png");
     float mgX{};
-    Texture2D foreground = LoadTexture("assets/textures/foregound-merged.png");
+    Texture2D foreground = LoadTexture("assets/textures/env/foregound-merged.png");
     float fgX{};
 };
 

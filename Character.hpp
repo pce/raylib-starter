@@ -12,11 +12,19 @@ public:
     void SetPosition(int posX, int posY);
     ~Character();
 private:
-    // Texture2D texture = LoadTexture("assets/textures/player.png");
+    Texture2D texture = LoadTexture("assets/textures/actor/player-swiming.png");
     float x{};
     float y{};
     int winWidth;
     int winHeight;
+    // animation data
+    float runningTime{};
+    int frame{};
+    // 1: right, -1: left
+    float rightLeft{1.0};
+    const float updateTime{1.f / 6.f};
+    int textureMaxFrames{7};
+    // Vector2 velocity{};
 };
 
 #endif
