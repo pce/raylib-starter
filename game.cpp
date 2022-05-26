@@ -1,13 +1,26 @@
+#include <string>
 #include "raylib.h"
 #include "Environment.hpp"
 #include "Character.hpp"
 
 auto main() -> int
 {
+    enum class GameScreen
+    {
+        TITLE,
+        GAMEPLAY,
+        GAMEOVER,
+    };
+    GameScreen currentScreen{GameScreen::TITLE};
+
     int winWidth{512};
     int winHeight{380};
 
     InitWindow(winWidth, winHeight, "Game");
+    // InitAudioDevice();
+
+    // Sound bgWav = LoadSound("assets/audio/bg.wav");
+    // SetSoundVolume(bgWav, 0.2f);
 
     Environment environment;
     Character character;
@@ -18,21 +31,68 @@ auto main() -> int
     SetTargetFPS(60);
     while (!WindowShouldClose())
     {
-        BeginDrawing();
-        ClearBackground(WHITE);
+        switch (currentScreen)
+        {
+        case GameScreen::TITLE:
+        {
+            BeginDrawing();
+            ClearBackground(GRAY);
 
-        // Env
-        environment.Tick(GetFrameTime());
+            std::string title{"Press any Key to Play!"};
+            // std::string help{"ASDW and MouseClick..."};
+            DrawText(title.c_str(), 23.f, 13.f, 20, BLACK);
+            DrawText(title.c_str(), 25.f, 15.f, 20, WHITE);
+            EndDrawing();
+            // is any key pressed
+            int key = GetKeyPressed();
+            if ((key >= 32) && (key <= 126))
+            {
+                // initGame()
+                // .Init();
+                currentScreen = GameScreen::GAMEPLAY;
+            }
+        }
+        break;
+        case GameScreen::GAMEOVER:
+        {
+            BeginDrawing();
+            ClearBackground(GRAY);
 
-        environment.Render();
+            std::string health{"Game Over!"};
+            DrawText(health.c_str(), 23.f, 13.f, 20, BLACK);
+            DrawText(health.c_str(), 25.f, 15.f, 20, WHITE);
+            EndDrawing();
+            // is any key pressed
+            int key = GetKeyPressed();
+            if ((key >= 32) && (key <= 126))
+            {
+                currentScreen = GameScreen::TITLE;
+            }
+        }
+        break;
+        case GameScreen::GAMEPLAY:
+        {
 
-        // Character
-        character.Tick(GetFrameTime());
-        character.Render();
+            BeginDrawing();
+            ClearBackground(WHITE);
 
+            // Env
+            environment.Tick(GetFrameTime());
 
-        EndDrawing();
+            environment.Render();
+
+            // Character
+            character.Tick(GetFrameTime());
+            character.Render();
+
+            EndDrawing();
+        }
+        }
     }
+
+    // StopSoundMulti();
+    // UnloadSound(bgWav);
+    // CloseAudioDevice();
 
     return 0;
 }

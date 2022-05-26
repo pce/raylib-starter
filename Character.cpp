@@ -31,7 +31,7 @@ void Character::Tick(float deltatime)
         frame = 0;
     }
 
-    if (frame == 0) { // && animCycles > 2
+    if (frame == 0) {
         showBubble = true;        
     }
 
@@ -87,4 +87,5 @@ void Character::SetPosition(int posX, int posY)
 Character::~Character()
 {
     // UnloadTexture(texture);
+    // UnloadTexture(bubbles);
 }
