@@ -17,10 +17,10 @@ auto main() -> int
     int winHeight{380};
 
     InitWindow(winWidth, winHeight, "Game");
-    // InitAudioDevice();
+    InitAudioDevice();
 
-    // Sound bgWav = LoadSound("assets/audio/bg.wav");
-    // SetSoundVolume(bgWav, 0.2f);
+    Sound bgWav = LoadSound("assets/sounds/213914__abolla__underwaterdrowning01.wav");
+    SetSoundVolume(bgWav, 0.8f);
 
     Environment environment;
     Character character;
@@ -48,7 +48,7 @@ auto main() -> int
             if ((key >= 32) && (key <= 126))
             {
                 // initGame()
-                // .Init();
+                // character.Init();
                 currentScreen = GameScreen::GAMEPLAY;
             }
         }
@@ -72,7 +72,10 @@ auto main() -> int
         break;
         case GameScreen::GAMEPLAY:
         {
-
+            // play background music when !IsSoundPlaying(bgWav)
+            if (!GetSoundsPlaying()) {
+                PlaySoundMulti(bgWav);
+            }
             BeginDrawing();
             ClearBackground(WHITE);
 
@@ -90,9 +93,9 @@ auto main() -> int
         }
     }
 
-    // StopSoundMulti();
-    // UnloadSound(bgWav);
-    // CloseAudioDevice();
+    StopSoundMulti();
+    UnloadSound(bgWav);
+    CloseAudioDevice();
 
     return 0;
 }
